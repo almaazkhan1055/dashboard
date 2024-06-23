@@ -5,7 +5,7 @@ const TableComponent = () => {
   const serialNumbers = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
-    <div className="table-container absolute w-full bottom-0">
+    <div className="table-container w-full">
       <table className="min-w-full bg-white border border-gray-200 ">
         <thead className="bg-gray-50">
           <tr>

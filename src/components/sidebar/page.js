@@ -1,3 +1,4 @@
+"use client";
 import {
   Dialog,
   DialogBackdrop,
@@ -16,12 +17,11 @@ import Image from "next/image";
 import sfLogo from "../../../public/Images/sf_logo.jpg";
 import dropdownIcon from "../../../public/svgs/dropdown-icon.svg";
 import userImg from "../../../public/Images/user.avif";
+import { useState } from "react";
+import TableDropDown from "../tableDropdown/page";
 
-// const rocketEmoji = String.fromCodePoint(0x1f680);
-// const brainEmoji = String.fromCodePoint(0x1f9e0);
-// const trophyEmoji = String.fromCodePoint(0x1f3c6)
-const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
+const initialNavigation = [
+  { name: "Dashboard", href: "#", icon: HomeIcon, current: false },
   { name: "Tables", href: "#", icon: TableCellsIcon, current: false },
   { name: "Users", href: "#", icon: UserGroupIcon, current: false },
   {
@@ -33,17 +33,30 @@ const navigation = [
   { name: "Settings", href: "#", icon: Cog6ToothIcon, current: false },
 ];
 
-// const teams = [
-//   { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
-//   { id: 2, name: "Tailwind Labs", href: "#", initial: "T", current: false },
-//   { id: 3, name: "Workcation", href: "#", initial: "W", current: false },
-// ];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
+  const [navigation, setNavigation] = useState(initialNavigation);
+  const [tableTabOpen, setTableTabOpen] = useState(false);
+
+  const clickHandler = (index) => {
+    setNavigation((prevNavigation) =>
+      prevNavigation.map((item, idx) => ({
+        ...item,
+        current: idx === index,
+      }))
+    );
+
+    if (index === 1) {
+      setTableTabOpen(!tableTabOpen);
+    } else {
+      setTableTabOpen(false);
+    }
+    console.log("tableTabOpen", tableTabOpen);
+  };
+
   return (
     <div>
       <Dialog
@@ -75,7 +88,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 </button>
               </div>
             </TransitionChild>
-            <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
+            <div className="flex grow flex-col gap-y-4 bg-white px-6 pb-4">
               <div className="flex h-16 shrink-0 items-center">
                 <h2 className="text-2xl font-semibold">Semiflat__</h2>
               </div>
@@ -89,11 +102,17 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 </div>
               </div>
               <nav className="flex flex-1 flex-col">
-                <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                  <li>
-                    <ul role="list" className="-mx-2 space-y-1">
-                      {navigation.map((item) => (
-                        <li key={item.name}>
+                <ul role="list" className="flex flex-1 flex-col items-start">
+                  {navigation.map((item, index) => (
+                    <li
+                      key={index}
+                      onClick={() => clickHandler(index)}
+                      className={classNames(
+                        tableTabOpen && index === 1 ? "mb-[142px]" : ""
+                      )}
+                    >
+                      <ul role="list" className="-mx-2 space-y-1">
+                        <li>
                           <a
                             href={item.href}
                             className={classNames(
@@ -115,29 +134,29 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             {item.name}
                           </a>
                         </li>
-                      ))}
-                    </ul>
-                  </li>
-                  <li className="mt-auto">
-                    <a
-                      href="#"
-                      className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
-                    >
-                      <Cog6ToothIcon
-                        className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
-                        aria-hidden="true"
-                      />
-                      Settings
-                    </a>
-                  </li>
+                      </ul>
+                    </li>
+                  ))}
                 </ul>
+                {tableTabOpen && <TableDropDown />}
               </nav>
+              <div className="flex items-start gap-2 mt-auto">
+                <div>
+                  <Image src={userImg} className="w-8 rounded-lg" alt="" />
+                </div>
+                <div className="text-[12px]">
+                  <p className="font-semibold">Tom Cook</p>
+                  <p className="text-gray-400 font-medium">
+                    tomcook@semiflat.com
+                  </p>
+                </div>
+              </div>
             </div>
           </DialogPanel>
         </div>
       </Dialog>
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
+        <div className="flex grow flex-col gap-y-5 border-r border-gray-200 bg-white px-6 pb-4">
           <div className="flex h-16 shrink-0 items-center">
             <h2 className="text-3xl font-semibold">Semiflat__</h2>
           </div>
@@ -151,11 +170,17 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </div>
           </div>
           <nav className="flex flex-1 flex-col">
-            <ul role="list" className="flex flex-1 flex-col gap-y-7">
-              <li>
-                <ul role="list" className="-mx-2 space-y-1">
-                  {navigation.map((item) => (
-                    <li key={item.name}>
+            <ul role="list" className="flex flex-1 flex-col">
+              {navigation.map((item, index) => (
+                <li
+                  key={index}
+                  onClick={() => clickHandler(index)}
+                  className={classNames(
+                    tableTabOpen && index === 1 ? "mb-[136px]" : ""
+                  )}
+                >
+                  <ul role="list" className="-mx-2 space-y-1">
+                    <li>
                       <a
                         href={item.href}
                         className={classNames(
@@ -177,24 +202,21 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         {item.name}
                       </a>
                     </li>
-                  ))}
-                </ul>
-              </li>
-              <li className="mt-auto">
-                <div className="flex items-center justify-evenly">
-                  <div>
-                    <Image src={userImg} className="w-8 rounded-lg" alt="" />
-                  </div>
-                  <div className="text-[12px]">
-                    <p className="font-semibold">Tom Cook</p>
-                    <p className="text-gray-400 font-medium">
-                      tomcook@semiflat.com
-                    </p>
-                  </div>
-                </div>
-              </li>
+                  </ul>
+                </li>
+              ))}
             </ul>
+            {tableTabOpen && <TableDropDown />}
           </nav>
+          <div className="flex items-start gap-2 mt-auto">
+            <div>
+              <Image src={userImg} className="w-8 rounded-lg" alt="" />
+            </div>
+            <div className="text-[12px]">
+              <p className="font-semibold">Tom Cook</p>
+              <p className="text-gray-400 font-medium">tomcook@semiflat.com</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
