@@ -22,7 +22,24 @@ import TableDropDown from "../tableDropdown/page";
 
 const initialNavigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: false },
-  { name: "Tables", href: "#", icon: TableCellsIcon, current: false },
+  {
+    name: "Tables",
+    href: "#",
+    icon: TableCellsIcon,
+    current: false,
+    child: [
+      {
+        name: "Test database",
+        href: "#",
+        icon: TableCellsIcon,
+        current: false,
+        child: [
+          { name: "Results", href: "#", icon: TableCellsIcon, current: false },
+          { name: "Messages", href: "#", icon: TableCellsIcon, current: false },
+        ],
+      },
+    ],
+  },
   { name: "Users", href: "#", icon: UserGroupIcon, current: false },
   {
     name: "Conversations",
@@ -40,8 +57,9 @@ function classNames(...classes) {
 export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [navigation, setNavigation] = useState(initialNavigation);
   const [tableTabOpen, setTableTabOpen] = useState(false);
+  const [nestedTabOpen, setNestedTabOpen] = useState(false);
 
-  const clickHandler = (index) => {
+  const clickHandler = (index, nested = false) => {
     setNavigation((prevNavigation) =>
       prevNavigation.map((item, idx) => ({
         ...item,
@@ -51,10 +69,14 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
     if (index === 1) {
       setTableTabOpen(!tableTabOpen);
+      if (!nested) setNestedTabOpen(false);
     } else {
       setTableTabOpen(false);
     }
-    console.log("tableTabOpen", tableTabOpen);
+  };
+
+  const nestedClickHandler = () => {
+    setNestedTabOpen(!nestedTabOpen);
   };
 
   return (
@@ -108,7 +130,11 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       key={index}
                       onClick={() => clickHandler(index)}
                       className={classNames(
-                        tableTabOpen && index === 1 ? "mb-[142px]" : ""
+                        tableTabOpen && index === 1
+                          ? nestedTabOpen
+                            ? "mb-36"
+                            : "mb-24"
+                          : ""
                       )}
                     >
                       <ul role="list" className="-mx-2 space-y-1">
@@ -138,7 +164,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </li>
                   ))}
                 </ul>
-                {tableTabOpen && <TableDropDown />}
+                {tableTabOpen && (
+                  <TableDropDown nestedClickHandler={nestedClickHandler} />
+                )}
               </nav>
               <div className="flex items-start gap-2 mt-auto">
                 <div>
@@ -176,7 +204,11 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   key={index}
                   onClick={() => clickHandler(index)}
                   className={classNames(
-                    tableTabOpen && index === 1 ? "mb-[136px]" : ""
+                    tableTabOpen && index === 1
+                      ? nestedTabOpen
+                        ? "mb-36"
+                        : "mb-24"
+                      : ""
                   )}
                 >
                   <ul role="list" className="-mx-2 space-y-1">
@@ -206,7 +238,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 </li>
               ))}
             </ul>
-            {tableTabOpen && <TableDropDown />}
+            {tableTabOpen && (
+              <TableDropDown nestedClickHandler={nestedClickHandler} />
+            )}
           </nav>
           <div className="flex items-start gap-2 mt-auto">
             <div>
