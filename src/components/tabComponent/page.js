@@ -6,8 +6,8 @@ function TabComponent({ relatedTabs }) {
   return (
     <Tabs aria-label="Default tabs" variant="default">
       {relatedTabs.map((tab, index) => (
-        <Tabs.Item key={index} active={index === 0} title={tab}>
-          <div className="ml-2">{tab === "Results" ? <TabContent /> : ""}</div>
+        <Tabs.Item key={index} active={index} title={tab}>
+          <div>{tab === "Results" ? <TabContent /> : ""}</div>
         </Tabs.Item>
       ))}
     </Tabs>

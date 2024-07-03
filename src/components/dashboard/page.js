@@ -14,7 +14,7 @@ export default function Dashboard() {
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className="lg:pl-72">
         <Header setSidebarOpen={setSidebarOpen} />
-        <div className="flex">
+        <div className="md:flex flex flex-col md:flex-row">
           <MainContent />
           <SqlSideBar />
         </div>

@@ -13,15 +13,35 @@ const TableDropDown = ({ nestedClickHandler }) => {
 
   const [showChildren, setShowChildren] = useState(false);
 
-  const handleNavigation = () => {
-    setDatabaseDetails(`${cactusEmoji} Test database`, ["Results", "Messages"]);
+  const handleNavigation = (e) => {
+    if (e.target.innerText === "Test database") {
+      setDatabaseDetails(`${cactusEmoji} ${e.target.innerText}`, [
+        "Results",
+        "Messages",
+      ]);
+    } else if (e.target.innerText === "HR") {
+      setDatabaseDetails(`${rocketEmoji} ${e.target.innerText}`, [
+        "Results",
+        "Messages",
+      ]);
+    } else if (e.target.innerText === "Growth") {
+      setDatabaseDetails(`${brainEmoji} ${e.target.innerText}`, [
+        "Results",
+        "Messages",
+      ]);
+    } else if (e.target.innerText === "Customer data") {
+      setDatabaseDetails(`${trophyEmoji} ${e.target.innerText}`, [
+        "Results",
+        "Messages",
+      ]);
+    }
     setShowChildren(!showChildren);
     nestedClickHandler();
   };
 
   return (
     <div className="absolute top-[240px] left-[15px] w-[60%] lg:mt-2">
-      <div className="flex flex-col items-center justify-evenly font-semibold w-[142px]">
+      <div className="flex flex-col items-center justify-evenly font-semibold md:mr-[18px] mr-[38px]">
         <div>
           <MinusCircleIcon className="h-5 w-5 inline-block text-gray-600" />
           <span>{cactusEmoji}</span>
@@ -53,21 +73,30 @@ const TableDropDown = ({ nestedClickHandler }) => {
       <div className="flex items-center font-semibold ml-2 mt-1">
         <PlusCircleIcon className="h-5 w-5 inline-block text-gray-600 mr-3" />
         <span>{rocketEmoji}</span>
-        <button className="text-[14px] text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-md">
+        <button
+          className="text-[14px] text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-md"
+          onClick={handleNavigation}
+        >
           HR
         </button>
       </div>
       <div className="flex items-center font-semibold ml-2 mt-1">
         <PlusCircleIcon className="h-5 w-5 inline-block text-gray-600 mr-3" />
         <span>{brainEmoji}</span>
-        <button className="text-[14px] text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-md">
+        <button
+          className="text-[14px] text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-md"
+          onClick={handleNavigation}
+        >
           Growth
         </button>
       </div>
       <div className="flex items-center font-semibold ml-2 mt-1">
         <PlusCircleIcon className="h-5 w-5 inline-block text-gray-600 mr-3" />
         <span className="text-[14px]">{trophyEmoji}</span>
-        <button className="text-[14px] text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-md">
+        <button
+          onClick={handleNavigation}
+          className="text-[14px] text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-md"
+        >
           Customer data
         </button>
       </div>

@@ -19,17 +19,9 @@ const Card = ({ children, className }) => (
   </div>
 );
 
-const LineNumberColumn = () => (
-  <div className="bg-gray-100 w-10 text-center py-2">
-    {Array.from({ length: 10 }, (_, i) => (
-      <h2 key={i}>{i + 1}</h2>
-    ))}
-  </div>
-);
-
 const SqlSideBar = () => {
   return (
-    <aside className="w-56 text-xs font-semibold p-2 bg-gray-100 border border-gray-200">
+    <aside className="md:w-56 text-xs font-semibold p-2 bg-gray-100 border border-gray-200">
       <Section title="SQL ID">
         <Card>Company SQL</Card>
       </Section>
@@ -42,12 +34,7 @@ const SqlSideBar = () => {
       </Section>
 
       <Section title="SQL Query">
-        <div className="border border-gray-300 rounded-md bg-white flex">
-          <LineNumberColumn />
-          <div className="pt-2">
-            <TabContent />
-          </div>
-        </div>
+        <TabContent />
       </Section>
 
       <div className="flex items-center justify-between mt-3">

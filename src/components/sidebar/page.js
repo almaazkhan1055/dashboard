@@ -133,7 +133,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         tableTabOpen && index === 1
                           ? nestedTabOpen
                             ? "mb-36"
-                            : "mb-24"
+                            : "mb-28"
                           : ""
                       )}
                     >
@@ -207,7 +207,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     tableTabOpen && index === 1
                       ? nestedTabOpen
                         ? "mb-36"
-                        : "mb-24"
+                        : "mb-28"
                       : ""
                   )}
                 >
