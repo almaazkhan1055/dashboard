@@ -21,7 +21,7 @@ const Card = ({ children, className }) => (
 
 const SqlSideBar = () => {
   return (
-    <aside className="md:w-56 text-xs font-semibold p-2 bg-gray-100 border border-gray-200">
+    <aside className="md:w-56 text-xs font-semibold p-2 bg-gray-50 border border-gray-200">
       <Section title="SQL ID">
         <Card>Company SQL</Card>
       </Section>
@@ -34,7 +34,11 @@ const SqlSideBar = () => {
       </Section>
 
       <Section title="SQL Query">
-        <TabContent />
+        <TabContent
+          bgcolor="gray"
+          rounded="rounded-lg"
+          border="border-2 border-gray-100"
+        />
       </Section>
 
       <div className="flex items-center justify-between mt-3">

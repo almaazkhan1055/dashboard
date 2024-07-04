@@ -8,7 +8,7 @@ const QueryHeader = () => {
   const { databaseName, relatedTabs } = databaseInfo;
 
   return (
-    <div className="flex flex-col gap-9">
+    <div className="flex flex-col gap-9 bg-gray-50">
       <div className="flex items-center justify-between p-8 text-2xl">
         <h2>{databaseName}</h2>
         <div className="flex gap-5">

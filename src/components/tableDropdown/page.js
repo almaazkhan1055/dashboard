@@ -41,7 +41,7 @@ const TableDropDown = ({ nestedClickHandler }) => {
 
   return (
     <div className="absolute top-[240px] left-[15px] w-[60%] lg:mt-2">
-      <div className="flex flex-col items-center justify-evenly font-semibold md:mr-[18px] mr-[38px]">
+      <div className="flex flex-col items-center justify-evenly font-semibold md:mr-[28px] mr-[48px]">
         <div>
           <MinusCircleIcon className="h-5 w-5 inline-block text-gray-600" />
           <span>{cactusEmoji}</span>

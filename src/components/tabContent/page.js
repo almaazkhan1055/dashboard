@@ -1,16 +1,16 @@
 import React from "react";
 
-const LineNumberColumn = () => (
-  <div className="bg-gray-100 w-10 text-center py-2">
+const LineNumberColumn = ({ bgcolor }) => (
+  <div className={`bg-${bgcolor}-100 w-10 text-center py-2`}>
     {Array.from({ length: 10 }, (_, i) => (
       <h2 key={i}>{i + 1}</h2>
     ))}
   </div>
 );
 
-const TabContent = () => (
-  <div className="border border-gray-300 rounded-md bg-white flex">
-    <LineNumberColumn />
+const TabContent = ({ bgcolor, rounded, border }) => (
+  <div className={`${border} bg-white flex ${rounded} gap-2`}>
+    <LineNumberColumn bgcolor={bgcolor} />
     <div className="pt-2">
       <div>
         <h2 className="text-purple-500">SELECT</h2>
